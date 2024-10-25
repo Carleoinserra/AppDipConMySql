@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +16,7 @@ public class MyController {
 	 * Creiamo un oggetto di tipo dipJdbcTemplate
 	 */
 	dipJdbcTemplate d1;
+	ArrayList<dip> lista = new ArrayList<>();
 	/*
 	 * Questo oggetto lo iniettiamo nel controller tramite costruttore
 	 */
@@ -24,8 +28,11 @@ public class MyController {
 	
 	@GetMapping("/form")
 	public String getForm() {
+		//d1.delete("Bianchi");
+		
 		
 		return "form";
+		
 	}
 	/*
 	 * Il metodo submit riceve i dati dal form 
@@ -42,6 +49,17 @@ public class MyController {
 		
 		
 		return "form";
+	}
+	
+	@GetMapping("/")
+	public String listaDip(Model m1) {
+		
+		lista = d1.getLista();
+		
+		m1.addAttribute("lista", lista);
+		
+		
+		return "lista";
 	}
 
 }
